@@ -1,14 +1,21 @@
-import { useState } from "react";
 import Square from "./Square";
 
 // interface BoardProps {
 //   i: number;
 // }
 
-function Board() {
+function Board({
+  xIsNext,
+  squares,
+  onPlay,
+}: {
+  xIsNext: boolean;
+  squares: string[];
+  onPlay: (nextSquares: string[]) => void;
+}) {
   // let value = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  // const [xIsNext, setXIsNext] = useState(true);
+  // const [squares, setSquares] = useState(Array(9).fill(null));
 
   const winner = calculateWinner(squares);
   let status;
@@ -28,8 +35,9 @@ function Board() {
     } else {
       nextSquares[i] = "O";
     }
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext);
+    onPlay(nextSquares);
+    // setSquares(nextSquares);
+    // setXIsNext(!xIsNext);
   }
 
   function calculateWinner(squares: string[]): string | null {
